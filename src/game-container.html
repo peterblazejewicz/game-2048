@@ -47,10 +47,15 @@
             }
             ready() {
                 super.ready();
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
                 this._setTileContainer(this.$.tiles.assignedNodes()[0]);
                 this._setGridContainer(this.$.grids.assignedNodes()[0]);
                 this._setGameMessage(this.$.message.assignedNodes()[0]);
             }
+
         }
         customElements.define(GameContainer.is, GameContainer);
     </script>

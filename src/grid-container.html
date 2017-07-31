@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./grid-cell.html">
 <dom-module id="grid-container">
     <template>
         <style>
+            :host {
+                display: block;
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                width: calc(100% - 2 * 15px);
+                height: calc(100% - 2 * 15px);
+                box-sizing: border-box;
+            }
         </style>
-        <p>Grid Container</p>
     </template>
     <script>
         class GridContainer extends Polymer.Element {
             static get is() { return 'grid-container'; }
+            static get properties() {
+                return {
+                    cells: {
+                        type: Number,
+                        readOnly: true,
+                        value: 0
+                    }
+                }
+            }
+
+            ready() {
+                super.ready();
+                this.addCells();
+            }
+
+            addCells() {
+                while(this.cells < 16) {
+                    const cell = new GridCell();
+                    cell.index = this.cells;
+                    this.shadowRoot.appendChild(cell);
+                    this._setCells(this.cells + 1);
+                }
+            }
+
         }
         customElements.define(GridContainer.is, GridContainer);
     </script>
