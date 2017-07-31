@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./tile-container.html">
+<link rel="import" href="./grid-container.html">
+<link rel="import" href="./game-message.html">
+
+<dom-module id="game-container">
+    <template>
+        <style>
+        </style>
+        <slot id="message" name="message"></slot>
+        <slot id="grids" name="grids"></slot>
+        <slot id="tiles" name="tiles"></slot>
+    </template>
+    <script>
+        class GameContainer extends Polymer.Element {
+            static get is() { return 'game-container'; }
+            static get properties() {
+                return {
+                    tileContainer: {
+                        type: TileContainer,
+                        readOnly: true
+                    },
+                    gameMessage: {
+                        type: GameMessage,
+                        readOnly: true
+                    },
+                    gridContainer: {
+                        type: GridContainer,
+                        readOnly: true
+                    }
+                }
+            }
+            ready() {
+                super.ready();
+                this._setTileContainer(this.$.tiles.assignedNodes()[0]);
+                this._setGridContainer(this.$.grids.assignedNodes()[0]);
+                this._setGameMessage(this.$.message.assignedNodes()[0]);
+            }
+        }
+        customElements.define(GameContainer.is, GameContainer);
+    </script>
+</dom-module>
