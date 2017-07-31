@@ -7,6 +7,20 @@
 <dom-module id="game-container">
     <template>
         <style>
+            :host {
+                position: relative;
+                padding: 15px;
+                cursor: default;
+                -webkit-touch-callout: none;
+                -ms-touch-callout: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -ms-touch-action: none;
+                touch-action: none;
+                background: var(--background-color-darker);
+                border-radius: 6px;
+            }
         </style>
         <slot id="message" name="message"></slot>
         <slot id="grids" name="grids"></slot>
