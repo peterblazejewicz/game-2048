@@ -1,0 +1,7 @@
+{
+  "name": "game-2048",
+  "short_name": "game-2048",
+  "description": "A 2048 game",
+  "start_url": "/",
+  "display": "standalone"
+}
