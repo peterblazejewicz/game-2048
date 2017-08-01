@@ -36,7 +36,7 @@
     <h2>Hello [[prop1]]!</h2>
     <game-container>
         <game-message slot="message"></game-message>
-        <grid-container slot="grids"></grid-container>
+        <grid-container id="grid" slot="grids"></grid-container>
         <tile-container slot="tiles"></tile-container>
     </game-container>
   </template>
@@ -55,6 +55,11 @@
             value: 'game-app'
           }
         };
+      }
+
+      ready() {
+        super.ready()
+        this.$.grid.size = 4;
       }
     }
 

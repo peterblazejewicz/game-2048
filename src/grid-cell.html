@@ -4,46 +4,42 @@
     <template>
         <style>
             :host {
-                --cell-row: 0;
-                --cell-col: 0;
-                --grid-cell-size: 106.25;
-                --cell-offset: 15;
+                --row: 0;
+                --column: 0;
                 display: inline-flex;
                 flex-direction: column;
-                position: absolute;
-                top: calc(1px * (var(--cell-row) * (var(--grid-cell-size) + var(--cell-offset))));
-                left: calc(1px * (var(--cell-col) * (var(--grid-cell-size) + var(--cell-offset))));
-                width: calc(1px * var(--grid-cell-size));
-                height: calc(1px * var(--grid-cell-size));
-                border-radius: 3px;
+                grid-column: var(--column);
+                grid-row: var(--row);
                 background: rgba(238, 228, 218, 0.35);
             }
         </style>
     </template>
     <script>
         class GridCell extends Polymer.Element {
-            static get config() {
-                return {
-                    Cols: 4,
-                    Rows: 4
-                }
-            }
             static get is() { return 'grid-cell';}
 
             static get properties() {
                 return {
-                    index: {
-                        type: Number
+                    column: {
+                        type: Number,
+                        value: 0,
+                        observer: '_columnChanged'
+                    },
+
+                    row: {
+                        type: Number,
+                        value: 0,
+                        observer: '_rowChanged'
                     }
                 }
             }
 
-            connectedCallback() {
-                super.connectedCallback();
-                if(!Number.isNaN(this.index)) {
-                    this.style.setProperty('--cell-col', this.index % GridCell.config.Cols);
-                    this.style.setProperty('--cell-row', this.index / GridCell.config.Rows >> 0);
-                }
+            _columnChanged() {
+                this.style.setProperty('--column', this.column || 0);
+            }
+
+            _rowChanged() {
+                this.style.setProperty('--row', this.row || 0);
             }
         }
         customElements.define(GridCell.is, GridCell);

@@ -5,12 +5,19 @@
     <template>
         <style>
             :host {
-                display: block;
+                --size: 0;
+                --gap: 15;
+                display: grid;
                 position: absolute;
-                top: 15px;
-                left: 15px;
-                width: calc(100% - 2 * 15px);
-                height: calc(100% - 2 * 15px);
+                top: 0;
+                left: 0;
+                grid-template-row: repeat(var(--size), 1fr);
+                grid-template-columns: repeat(var(--size), 1fr);
+                grid-column-gap: calc(1px * var(--gap));
+                grid-row-gap: calc(1px * var(--gap));
+                width: 100%;
+                height: 100%;
+                padding: calc(1px * var(--gap));
                 box-sizing: border-box;
             }
         </style>
@@ -20,25 +27,53 @@
             static get is() { return 'grid-container'; }
             static get properties() {
                 return {
-                    cells: {
+                    /**
+                    * the size of the grid {n} cols {n} rows
+                    */
+                    size: {
                         type: Number,
+                        observer: '_sizeChanged'
+
+                    },
+                    /**
+                    * references to the cells
+                    */
+                    cells: {
+                        type: Array,
                         readOnly: true,
-                        value: 0
+                        value: []
                     }
                 }
             }
 
-            ready() {
-                super.ready();
-                this.addCells();
+            /**
+            * when the size changes rebuild cells
+            */
+            _sizeChanged() {
+                this.style.setProperty('--size', this.size || 0);
+                this._removeCells();
+                if(this.size > 0) {
+                    this._addCells();
+                }
             }
 
-            addCells() {
-                while(this.cells < 16) {
-                    const cell = new GridCell();
-                    cell.index = this.cells;
-                    this.shadowRoot.appendChild(cell);
-                    this._setCells(this.cells + 1);
+            get maxSize() {
+                return Math.pow((this.size || 0), 2);
+            }
+
+            _addCells() {
+                let cell, index;
+                while(this.cells.length < this.maxSize) {
+                    cell = this.shadowRoot.appendChild(new GridCell());
+                    this.cells.push(cell);
+                }
+            }
+
+            _removeCells() {
+                if(!this.cells) return;
+                while(this.cells.length > 0) {
+                    let cell = this.cells.pop();
+                    cell.remove();
                 }
             }
 
