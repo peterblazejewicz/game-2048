@@ -19,7 +19,8 @@
         --game-height: 500px;
       }
 
-      game-container {
+      game-container,
+      tile-container {
         width: var(--game-width);
         height: var(--game-height);
         box-sizing: border-box;
@@ -37,7 +38,7 @@
     <game-container>
         <game-message slot="message"></game-message>
         <grid-container id="grid" slot="grids"></grid-container>
-        <tile-container slot="tiles"></tile-container>
+        <tile-container id="tiles" slot="tiles"></tile-container>
     </game-container>
   </template>
 
@@ -60,6 +61,7 @@
       ready() {
         super.ready()
         this.$.grid.size = 4;
+        this.$.tiles.size = 4;
       }
     }
 
