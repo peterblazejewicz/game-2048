@@ -1,33 +1,100 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>grid-container test</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+  <title>grid-container test</title>
 
-    <link rel="import" href="../src/grid-container.html">
-  </head>
-  <body>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
 
-    <test-fixture id="BasicTestFixture">
-      <template>
-        <grid-container></grid-container>
-      </template>
-    </test-fixture>
-    <script>
-      suite('grid-container', function() {
+  <link rel="import" href="../src/grid-container.html">
+</head>
 
-        test('instantiating the element with default properties works', function() {
-          assert.ok(true);
+<body>
+
+  <test-fixture id="BasicTestFixture">
+    <template>
+      <grid-container></grid-container>
+    </template>
+  </test-fixture>
+  <script>
+    suite('grid-container', function () {
+
+      suite('default properties and methods', () => {
+
+        test('it is registered correctly', function () {
+          let grid = fixture('BasicTestFixture');
+          assert.ok(grid);
+        });
+
+        test('it has undefined size', function () {
+          let grid = fixture('BasicTestFixture');
+          assert.strictEqual(grid.size, undefined);
+        });
+
+        test('it has an array of cells', function () {
+          let grid = fixture('BasicTestFixture');
+          assert.notStrictEqual(grid.cells, undefined);
+        });
+
+        test('it the zero length cells array', function () {
+          let grid = fixture('BasicTestFixture');
+          assert.strictEqual(grid.cells.length, 0);
         });
 
       });
-    </script>
+
+      suite('maxSize property', () => {
+
+        test('it defaults to 0', function () {
+          let grid = fixture('BasicTestFixture');
+          assert.strictEqual(grid.maxSize, 0);
+        });
+
+        test('it equals squared size', function () {
+          let grid = fixture('BasicTestFixture');
+          grid.size = 4;
+          assert.strictEqual(grid.maxSize, 16);
+          grid.size = 3;
+          assert.strictEqual(grid.maxSize, 9);
+        });
+      })
+
+      suite('cells creation', () => {
+
+        test('changing size to 2 creates 4 cells', function () {
+          let grid = fixture('BasicTestFixture');
+          grid.size = 2;
+          assert.strictEqual(grid.maxSize, 4);
+          assert.strictEqual(grid.size, 2);
+          assert.strictEqual(grid.cells.length, 4);
+        });
+
+        test('changing size to 4 creates 16 cells', function () {
+          let grid = fixture('BasicTestFixture');
+          grid.size = 4;
+          assert.strictEqual(grid.size, 4);
+          assert.strictEqual(grid.cells.length, 16);
+        });
+
+        test('changing size to 0 creates empty cells array', () => {
+          let grid = fixture('BasicTestFixture');
+          grid.size = 4;
+          grid.size = 0;
+          assert.strictEqual(grid.size, 0);
+          assert.strictEqual(grid.cells.length, 0);
+        });
+
+        
+      });
+
+    });
+  </script>
 
 
-  </body>
+</body>
+
 </html>
