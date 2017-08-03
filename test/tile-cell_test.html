@@ -27,6 +27,12 @@
         </template>
     </test-fixture>
 
+    <test-fixture id="ConfiguredTileFixture">
+        <template>
+            <tile-cell row="2" column="4" value="2"></tile-cell>
+        </template>
+    </test-fixture>
+
     <script>
         suite('tile-cell', () => {
 
@@ -51,6 +57,23 @@
                     let tile = fixture('TileBehaviorFixture');
                     assert.strictEqual(tile.row, 2);
                     assert.strictEqual(tile.column, 4);
+                });
+
+            });
+
+            suite('tile configuration tests', () => {
+
+                test('it is visible when its value euquals 2', () => {
+                    let tile = fixture('ConfiguredTileFixture');
+                    assert.strictEqual(tile.value, 2);
+                    assert.strictEqual(tile.visible, true);
+                });
+
+                test('it is not visible when value is 0', () => {
+                    let tile = fixture('BasicTestFixture');
+                    tile.value = 0;
+                    assert.strictEqual(tile.value, 0);
+                    assert.strictEqual(tile.visible, false);
                 });
 
             });

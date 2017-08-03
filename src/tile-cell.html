@@ -7,10 +7,37 @@
     <template>
         <style include="tile-shared-styles">
         </style>
+        <p>[[value]]</p>
     </template>
     <script>
         class TileCell extends TileMixin(Polymer.Element) {
             static get is() { return 'tile-cell';}
+
+            static get properties() {
+                return {
+                    /**
+                    * the value of this tile
+                    * As the rules for 2048 the value should be always a
+                    * power of 2 - otherwise defaults to 0
+                    */
+                    value: {
+                        type: Number
+                    },
+                    /**
+                    * the tile is only rendered when its value is 
+                    * a power of 2
+                    */
+                    visible: {
+                        type: Boolean,
+                        computed: '_toggleVisibility(value)'
+                    }
+                }
+            }
+
+            _toggleVisibility(value) {
+                return [2, 4, 6, 16, 32, 64, 128, 256, 512, 1024, 2048]
+                    .includes(value);
+            }
         }
         customElements.define(TileCell.is, TileCell);
     </script>

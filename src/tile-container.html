@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="./base-container.html">
 <link rel="import" href="./shared-container-styles.html">
+<link rel="import" href="./tile-cell.html">
 
 <dom-module id="tile-container">
     <template>
@@ -11,14 +12,42 @@
     </template>
     <script>
         class TileContainer extends BaseContainerMixin(Polymer.Element) {
-            static get is() { return 'tile-container';}
+            static get is() {
+                return 'tile-container';
+            }
 
+            /**
+             * Overriden from super class
+             */
             _cellsChanged() {
                 super._cellsChanged();
-                console.log(this._cellsChanged.name);
+                this.__removeTiles();
+                this.__addTiles();
+            }
+
+            __addTiles() {
+                this.cells.forEach((row, rowIndex) => {
+                    row.forEach((value, columnIndex) => {
+                        let cell = new TileCell();
+                        cell.setProperties({
+                            value,
+                            column: columnIndex + 1,
+                            row: rowIndex + 1
+                        });
+                        this.shadowRoot.appendChild(cell);
+                    });
+                });
+            }
+
+            __removeTiles() {
+                Array.from(this.shadowRoot.children)
+                    .forEach((el, index) => {
+                        if (el instanceof TileCell) {
+                            this.shadowRoot.removeChild(el);
+                        }
+                    });
             }
         }
         customElements.define(TileContainer.is, TileContainer);
     </script>
 </dom-module>
-    
