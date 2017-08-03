@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tile-cell test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../src/tile-cell.html">
+</head>
+
+<body>
+
+    <test-fixture id="BasicTestFixture">
+        <template>
+            <tile-cell></tile-cell>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="TileBehaviorFixture">
+        <template>
+            <tile-cell row="2" column="4"></tile-cell>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('tile-cell', () => {
+
+            suite('default properties and methods', () => {
+
+                test('it is registered correctly', function () {
+                    let tile = fixture('BasicTestFixture');
+                    assert.ok(tile);
+                });
+
+                test('it has undefined row property', () => {
+                    let tile = fixture('BasicTestFixture');
+                    assert.strictEqual(tile.row, undefined);
+                });
+
+                test('it has undefined column property', () => {
+                    let tile = fixture('BasicTestFixture');
+                    assert.strictEqual(tile.column, undefined);
+                });
+
+                test('it has inherits tile behavior column property bindings', () => {
+                    let tile = fixture('TileBehaviorFixture');
+                    assert.strictEqual(tile.row, 2);
+                    assert.strictEqual(tile.column, 4);
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
