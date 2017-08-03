@@ -34,11 +34,10 @@
       }
 
     </style>
-    <h2>Hello [[prop1]]!</h2>
     <game-container>
         <game-message slot="message"></game-message>
-        <grid-container id="grid" slot="grids"></grid-container>
-        <tile-container id="tiles" slot="tiles"></tile-container>
+        <grid-container id="grid" slot="grids" size="[[gridSize]]"></grid-container>
+        <tile-container id="tiles" slot="tiles" size="[[gridSize]]"></tile-container>
     </game-container>
   </template>
 
@@ -51,17 +50,15 @@
       static get is() { return 'game-app'; }
       static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'game-app'
+          gridSize: {
+            type: Number,
+            value: 4
           }
         };
       }
 
       ready() {
         super.ready()
-        this.$.grid.size = 4;
-        this.$.tiles.size = 4;
       }
     }
 
