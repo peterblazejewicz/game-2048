@@ -1,61 +1,42 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <dom-module id="base-container">
-    <template>
-        <style>
-            :host {
-                --size: 0;
-                --gap: 15;
-                display: grid;
-                position: absolute;
-                top: 0;
-                left: 0;
-                grid-template-row: repeat(var(--size), 1fr);
-                grid-template-columns: repeat(var(--size), 1fr);
-                grid-column-gap: calc(1px * var(--gap));
-                grid-row-gap: calc(1px * var(--gap));
-                width: 100%;
-                height: 100%;
-                padding: calc(1px * var(--gap));
-                box-sizing: border-box;
-            }
-        </style>
-    </template>
     <script>
-        class BaseContainer extends Polymer.Element {
-            static get properties() {
-                return {
-                    /**
-                    * the size of the grid {n} cols {n} rows
-                    */
-                    size: {
-                        type: Number,
-                        observer: '_sizeChanged'
+        BaseContainerMixin = (superclass) => {
+            return class extends superclass {
+                static get properties() {
+                    return {
+                        /**
+                        * the size of the grid {n} cols {n} rows
+                        */
+                        size: {
+                            type: Number,
+                            observer: '_sizeChanged'
 
-                    },
-                    /**
-                    * references to the cells
-                    */
-                    cells: {
-                        type: Array,
-                        readOnly: true,
-                        value: () => []
+                        },
+                        /**
+                        * references to the cells
+                        */
+                        cells: {
+                            type: Array,
+                            readOnly: true,
+                            value: () => []
+                        }
                     }
                 }
+
+                /**
+                * when the size changes rebuild cells
+                */
+                _sizeChanged() {}
+
+                /**
+                * Max size of the grid {N} * {N} POW({N})
+                */
+                get maxSize() {
+                    return Math.pow((this.size || 0), 2);
+                }
             }
-
-            /**
-            * when the size changes rebuild cells
-            */
-            _sizeChanged() {}
-
-            /**
-            * Max size of the grid {N} * {N} POW({N})
-            */
-            get maxSize() {
-                return Math.pow((this.size || 0), 2);
-            }
-
         }
     </script>
 </dom-module>

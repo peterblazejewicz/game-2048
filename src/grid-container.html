@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="./base-container.html">
+<link rel="import" href="./shared-container-styles.html">
 <link rel="import" href="./grid-cell.html">
 <dom-module id="grid-container">
     <template>
-        <style include="base-container">
+        <style include="shared-container-styles">
             /* instance specific style */
         </style>
     </template>
@@ -11,7 +13,7 @@
         /**
         * Extends shared container (with grid support)
         */
-        class GridContainer extends BaseContainer {
+        class GridContainer extends BaseContainerMixin(Polymer.Element) {
             static get is() { return 'grid-container'; }
 
             /**

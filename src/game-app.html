@@ -36,8 +36,8 @@
     </style>
     <game-container>
         <game-message slot="message"></game-message>
-        <grid-container id="grid" slot="grids" size="[[gridSize]]"></grid-container>
-        <tile-container id="tiles" slot="tiles" size="[[gridSize]]"></tile-container>
+        <grid-container id="grid" slot="grids" size="[[size]]"></grid-container>
+        <tile-container id="tiles" slot="tiles" size="[[size]]"></tile-container>
     </game-container>
   </template>
 
@@ -50,7 +50,7 @@
       static get is() { return 'game-app'; }
       static get properties() {
         return {
-          gridSize: {
+          size: {
             type: Number,
             value: 4
           }

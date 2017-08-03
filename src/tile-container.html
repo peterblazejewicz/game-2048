@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="./base-container.html">
+<link rel="import" href="./shared-container-styles.html">
 
 <dom-module id="tile-container">
     <template>
-        <style include="base-container">
+        <style include="shared-container-styles">
             /* instance specific styles */
         </style>
     </template>
     <script>
-        class TileContainer extends BaseContainer {
+        class TileContainer extends BaseContainerMixin(Polymer.Element) {
             static get is() { return 'tile-container';}
         }
         customElements.define(TileContainer.is, TileContainer);
