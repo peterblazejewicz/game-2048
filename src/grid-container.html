@@ -1,67 +1,32 @@
 <!DOCTYPE html>
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./base-container.html">
 <link rel="import" href="./grid-cell.html">
 <dom-module id="grid-container">
     <template>
-        <style>
-            :host {
-                --size: 0;
-                --gap: 15;
-                display: grid;
-                position: absolute;
-                top: 0;
-                left: 0;
-                grid-template-row: repeat(var(--size), 1fr);
-                grid-template-columns: repeat(var(--size), 1fr);
-                grid-column-gap: calc(1px * var(--gap));
-                grid-row-gap: calc(1px * var(--gap));
-                width: 100%;
-                height: 100%;
-                padding: calc(1px * var(--gap));
-                box-sizing: border-box;
-            }
+        <style include="base-container">
+            /* instance specific style */
         </style>
     </template>
     <script>
-        class GridContainer extends Polymer.Element {
+        /**
+        * Extends shared container (with grid support)
+        */
+        class GridContainer extends BaseContainer {
             static get is() { return 'grid-container'; }
-            static get properties() {
-                return {
-                    /**
-                    * the size of the grid {n} cols {n} rows
-                    */
-                    size: {
-                        type: Number,
-                        observer: '_sizeChanged'
-
-                    },
-                    /**
-                    * references to the cells
-                    */
-                    cells: {
-                        type: Array,
-                        readOnly: true,
-                        value: []
-                    }
-                }
-            }
 
             /**
             * when the size changes rebuild cells
             */
             _sizeChanged() {
+                super._sizeChanged();
                 this.style.setProperty('--size', this.size || 0);
-                this._removeCells();
+                this.__removeCells();
                 if(this.size > 0) {
-                    this._addCells();
+                    this.__addCells();
                 }
             }
 
-            get maxSize() {
-                return Math.pow((this.size || 0), 2);
-            }
-
-            _addCells() {
+            __addCells() {
                 let cell, index;
                 while(this.cells.length < this.maxSize) {
                     cell = this.shadowRoot.appendChild(new GridCell());
@@ -69,7 +34,7 @@
                 }
             }
 
-            _removeCells() {
+            __removeCells() {
                 if(!this.cells) return;
                 while(this.cells.length > 0) {
                     let cell = this.cells.pop();

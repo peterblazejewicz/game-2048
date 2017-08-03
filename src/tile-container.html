@@ -1,29 +1,14 @@
 <!DOCTYPE html>
-<link rel="import" href="./grid-container.html">
+<link rel="import" href="./base-container.html">
 
 <dom-module id="tile-container">
     <template>
-        <style>
-            :host {
-                --size: 0;
-                --gap: 15;
-                display: grid;
-                position: absolute;
-                top: 0;
-                left: 0;
-                grid-template-row: repeat(var(--size), 1fr);
-                grid-template-columns: repeat(var(--size), 1fr);
-                grid-column-gap: calc(1px * var(--gap));
-                grid-row-gap: calc(1px * var(--gap));
-                width: 100%;
-                height: 100%;
-                padding: calc(1px * var(--gap));
-                box-sizing: border-box;
-            }
+        <style include="base-container">
+            /* instance specific styles */
         </style>
     </template>
     <script>
-        class TileContainer extends GridContainer {
+        class TileContainer extends BaseContainer {
             static get is() { return 'tile-container';}
         }
         customElements.define(TileContainer.is, TileContainer);
