@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<dom-module id="base-container">
+    <script>
+        TileMixin = (superclass) => {
+            return class extends superclass {
+                /**
+                * basic properties of tile are row and column
+                */
+                static get properties() {
+                    return {
+                        column: {
+                            type: Number,
+                            observer: '_columnChanged'
+                        },
+
+                        row: {
+                            type: Number,
+                            observer: '_rowChanged'
+                        }
+                    }
+                }
+                /**
+                * update a CSS bound --column property
+                */
+                _columnChanged() {
+                    this.style.setProperty('--column', this.column || 0);
+                }
+
+                /**
+                * update a CSS bound --row property
+                */
+                _rowChanged() {
+                    this.style.setProperty('--row', this.row || 0);
+                }
+            }
+        }
+    </script>
+</dom-module>

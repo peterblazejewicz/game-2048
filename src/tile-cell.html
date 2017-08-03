@@ -2,16 +2,17 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="./tile-shared-styles.html">
 <link rel="import" href="./tile-mixin.html">
-<dom-module id="grid-cell">
+
+<dom-module id="tile-cell">
     <template>
         <style include="tile-shared-styles">
         </style>
     </template>
     <script>
-        class GridCell extends TileMixin(Polymer.Element) {
-            static get is() { return 'grid-cell';}
+        class TileCell extends TileMixin(Polymer.Element) {
+            static get is() { return 'tile-cell';}
         }
-        customElements.define(GridCell.is, GridCell);
+        customElements.define(TileCell.is, TileCell);
     </script>
 </dom-module>
     
