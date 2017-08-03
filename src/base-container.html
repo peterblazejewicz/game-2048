@@ -19,8 +19,7 @@
                         */
                         cells: {
                             type: Array,
-                            readOnly: true,
-                            value: () => []
+                            observer: '_cellsChanged'
                         }
                     }
                 }
@@ -28,7 +27,14 @@
                 /**
                 * when the size changes rebuild cells
                 */
-                _sizeChanged() {}
+                _sizeChanged() {
+                    this.style.setProperty('--size', this.size || 0);
+                }
+
+                /**
+                * when the cells array changes
+                */
+                _cellsChanged() {}
 
                 /**
                 * Max size of the grid {N} * {N} POW({N})

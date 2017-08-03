@@ -37,12 +37,7 @@
 
         test('it has an array of cells', function () {
           let grid = fixture('BasicTestFixture');
-          assert.notStrictEqual(grid.cells, undefined);
-        });
-
-        test('it the zero length cells array', function () {
-          let grid = fixture('BasicTestFixture');
-          assert.strictEqual(grid.cells.length, 0);
+          assert.strictEqual(grid.cells, undefined);
         });
 
       });
@@ -65,29 +60,11 @@
 
       suite('cells creation', () => {
 
-        test('changing size to 2 creates 4 cells', function () {
+        test('changing size to 2 does not change cells length', function () {
           let grid = fixture('BasicTestFixture');
           grid.size = 2;
-          assert.strictEqual(grid.maxSize, 4);
-          assert.strictEqual(grid.size, 2);
-          assert.strictEqual(grid.cells.length, 4);
+          assert.strictEqual(grid.cells, undefined);
         });
-
-        test('changing size to 4 creates 16 cells', function () {
-          let grid = fixture('BasicTestFixture');
-          grid.size = 4;
-          assert.strictEqual(grid.size, 4);
-          assert.strictEqual(grid.cells.length, 16);
-        });
-
-        test('changing size to 0 creates empty cells array', () => {
-          let grid = fixture('BasicTestFixture');
-          grid.size = 4;
-          grid.size = 0;
-          assert.strictEqual(grid.size, 0);
-          assert.strictEqual(grid.cells.length, 0);
-        });
-
         
       });
 

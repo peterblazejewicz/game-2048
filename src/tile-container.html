@@ -12,6 +12,11 @@
     <script>
         class TileContainer extends BaseContainerMixin(Polymer.Element) {
             static get is() { return 'tile-container';}
+
+            _cellsChanged() {
+                super._cellsChanged();
+                console.log(this._cellsChanged.name);
+            }
         }
         customElements.define(TileContainer.is, TileContainer);
     </script>

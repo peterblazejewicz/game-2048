@@ -36,8 +36,10 @@
     </style>
     <game-container>
         <game-message slot="message"></game-message>
-        <grid-container id="grid" slot="grids" size="[[size]]"></grid-container>
-        <tile-container id="tiles" slot="tiles" size="[[size]]"></tile-container>
+        <grid-container id="grid" slot="grids" size="[[size]]" cells="[[cells]]"></grid-container>
+        <!--
+        <tile-container id="tiles" slot="tiles" size="[[size]]" cells="[[cells]]"></tile-container>
+        -->
     </game-container>
   </template>
 
@@ -50,18 +52,23 @@
       static get is() { return 'game-app'; }
       static get properties() {
         return {
+
           size: {
             type: Number,
             value: 4
+          },
+
+          cells: {
+            type: Array,
+            value: () => {
+              return [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+            }
           }
         };
       }
 
-      ready() {
-        super.ready()
-      }
     }
-
     window.customElements.define(GameApp.is, GameApp);
+
   </script>
 </dom-module>

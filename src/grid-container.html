@@ -21,27 +21,37 @@
             */
             _sizeChanged() {
                 super._sizeChanged();
-                this.style.setProperty('--size', this.size || 0);
+            }
+
+            /**
+            * Overriden from super class
+            */
+            _cellsChanged() {
+                super._cellsChanged();
                 this.__removeCells();
-                if(this.size > 0) {
-                    this.__addCells();
-                }
+                this.__addCells();
             }
 
             __addCells() {
-                let cell, index;
-                while(this.cells.length < this.maxSize) {
-                    cell = this.shadowRoot.appendChild(new GridCell());
-                    this.cells.push(cell);
-                }
+                this.cells.forEach((row, rowIndex) => {
+                    row.forEach((column, columnIndex) => {
+                        let cell = new GridCell();
+                        cell.setProperties({
+                            column: columnIndex + 1,
+                            row: rowIndex + 1
+                        });
+                        this.shadowRoot.appendChild(cell);                        
+                    });
+                });
             }
 
             __removeCells() {
-                if(!this.cells) return;
-                while(this.cells.length > 0) {
-                    let cell = this.cells.pop();
-                    cell.remove();
-                }
+                Array.from(this.shadowRoot.children)
+                .forEach((el, index) => {
+                    if(el instanceof GridCell) {
+                        this.shadowRoot.removeChild(el);
+                    }
+                });
             }
 
         }
