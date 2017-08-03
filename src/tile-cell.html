@@ -6,6 +6,19 @@
 <dom-module id="tile-cell">
     <template>
         <style include="tile-shared-styles">
+            :host {
+                display: flex;
+                flex-direction: columns;
+                justify-content: center;
+                align-items: center;
+                font-size: 2.5rem;
+                font-weight: bolder;
+            }
+            p {
+                font-size: inherit;
+                margin: 0;
+                padding: 0;
+            }
         </style>
         <p>[[value]]</p>
     </template>
