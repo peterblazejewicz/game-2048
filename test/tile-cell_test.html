@@ -59,6 +59,19 @@
                     assert.strictEqual(tile.column, 4);
                 });
 
+                test('it has static list of 11 puzzles', () => {
+                    let tile = fixture('BasicTestFixture');
+                    assert.ok(Array.isArray(tile.constructor.puzzles));
+                    assert.equal(tile.constructor.puzzles.length, 11);
+                });
+
+                test('it has a property with list of puzzles', () => {
+                    let tile = fixture('BasicTestFixture');
+                    assert.notStrictEqual(tile.puzzles, undefined);
+                    assert.ok(Array.isArray(tile.puzzles));
+                    assert.equal(tile.puzzles.length, 11);
+                });
+
             });
 
             suite('tile configuration tests', () => {
@@ -69,11 +82,24 @@
                     assert.strictEqual(tile.visible, true);
                 });
 
+                test('it is valid when its value euquals 2', () => {
+                    let tile = fixture('ConfiguredTileFixture');
+                    assert.strictEqual(tile.value, 2);
+                    assert.strictEqual(tile.valid, true);
+                });
+
                 test('it is not visible when value is 0', () => {
                     let tile = fixture('BasicTestFixture');
                     tile.value = 0;
                     assert.strictEqual(tile.value, 0);
                     assert.strictEqual(tile.visible, false);
+                });
+
+                test('it is not valid when value is 0', () => {
+                    let tile = fixture('BasicTestFixture');
+                    tile.value = 0;
+                    assert.strictEqual(tile.value, 0);
+                    assert.strictEqual(tile.valid, false);
                 });
 
             });
