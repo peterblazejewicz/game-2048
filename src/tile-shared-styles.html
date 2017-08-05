@@ -3,13 +3,20 @@
     <template>
         <style>
             :host {
+
                 --row: 0;
                 --column: 0;
+                --tile-border-radius: 3;
+                --tile-color: 30, 37%, 89%;
+                --tile-gold-color: 46, 84%, 70%;
+                --tile-font-size: 55;
+
                 display: inline-flex;
                 flex-direction: column;
                 grid-column: var(--column);
                 grid-row: var(--row);
-                background: rgba(238, 228, 218, 0.35);
+                border-radius: calc(1px * var(--tile-border-radius));
+
             }
         </style>
     </template>
