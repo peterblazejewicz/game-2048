@@ -4,16 +4,57 @@
     <template> 
         <style>
             :host {
+                --score-background: #bbada0;
+                --score-color: white;
+                --score-font-size: 25px;
+                --score-title-font-size: 13px;
+                --score-title-color: #eee4da;
+                --score-font-weight: bold;
                 --score-title: 'comics';
                 display: inline-flex;
                 flex-direction: column;
+                margin-top: 8px;
+                height: 55px;
+                min-width: 5rem;
+                border-radius: 3px;
+                color: var(--score-color);
+                font-size: var(--score-font-size);
+                font-weight: var(--score-font-weight);
+                text-align: center;
+                background-color: var(--score-background);
+                box-sizing: border-box;
             }
-            :host::after {
-                content: var(--score-title);
+
+            dl {
+                padding: 0 25px;
+                margin: 0;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                flex: auto;
+                justify-content: space-around;
+                align-items: center;
+            }
+            dt,
+            dd {
+                margin: 0;
+                padding: 0;
+                line-height: 1;
+            }
+
+            dt {
+                margin-top: .5em;
+                color: var(--score-title-color);
+                font-size: var(--score-title-font-size);
+                text-transform: uppercase;
+                line-height: 1;
             }
 
         </style>
-        <p id="score">[[score]]</p>
+        <dl>
+            <dt>[[title]]</dt>
+            <dd>[[score]]</dd>
+        </dl>
     </template>
     <script>
         class GameScore extends Polymer.Element {
@@ -43,7 +84,6 @@
             _scoreChanged() {}
 
             _titleChanged() {
-                this.style.setProperty('--score-title', `'${this.title}'`);
             }
         }
         customElements.define(GameScore.is, GameScore);
