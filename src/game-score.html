@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<dom-module id="game-score">
+    <template> 
+        <style>
+            :host {
+                --score-title: '';
+                display: inline-flex;
+                flex-direction: column;
+            }
+            :host(::after) {
+                content: var(--score-title);
+            }
+        </style>
+        [[score]]
+    </template>
+    <script>
+        class GameScore extends Polymer.Element {
+            static get is() { return 'game-score'; }
+            static get properties() {
+                return {
+                    /**
+                    * a title of this score
+                    */
+                    title: {
+                        type: String,
+                        reflectToAttribute: true,
+                        observer: '_titleChanged'
+                    },
+                    /**
+                    * The score to display
+                    */
+                    score: {
+                        type: Number,
+                        value: 0,
+                        reflectToAttribute: true,
+                        observer: '_scoreChanged'
+                    }
+                }
+            }
+            
+            _scoreChanged() {}
+
+            _titleChanged() {}
+        }
+        customElements.define(GameScore.is, GameScore);
+    </script>
+</dom-module>

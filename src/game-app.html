@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./game-controls.html">
 <link rel="import" href="./game-container.html">
 <link rel="import" href="./tile-container.html">
 <link rel="import" href="./grid-container.html">
@@ -17,6 +18,12 @@
         justify-content: center;
         --game-width: 500px;
         --game-height: 500px;
+        width: var(--game-width);
+        margin: 0 auto;
+      }
+
+      game-controls {
+        width: 100%;
       }
 
       game-container,
@@ -42,6 +49,7 @@
       }
 
     </style>
+    <game-controls title="2048"></game-controls>
     <game-container>
         <game-message slot="message"></game-message>
         <grid-container id="grid" slot="grids" size="[[size]]" cells="[[cells]]"></grid-container>
