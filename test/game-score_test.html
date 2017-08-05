@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>GameScore Tests</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../src/game-score.html">
+</head>
+
+<body>
+
+    <test-fixture id="BasicTestFixture">
+        <template>
+            <game-score></game-score>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="ConfiguredFixutre">
+        <template>
+            <game-score score="137" title="Score"></game-score>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('game-score', () => {
+
+            suite('default properties and methods', () => {
+
+                test('it is registered correctly', function () {
+                    let gameScore = fixture('BasicTestFixture');
+                    assert.ok(gameScore);
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
