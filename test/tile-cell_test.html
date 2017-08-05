@@ -102,6 +102,20 @@
                     assert.strictEqual(tile.valid, false);
                 });
 
+                test('it has value attr when value is valid', () => {
+                    let tile = fixture('BasicTestFixture');
+                    tile.value = 2;
+                    assert.strictEqual(tile.value, 2);
+                    assert.ok(tile.hasAttribute('value'));
+                });
+
+                test('it has no value attr when value is not valid', () => {
+                    let tile = fixture('BasicTestFixture');
+                    tile.value = 0;
+                    assert.equal(tile.valid, false);
+                    assert.equal(tile.hasAttribute('valid'), false);
+                });
+
             });
 
         });
