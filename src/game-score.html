@@ -4,15 +4,16 @@
     <template> 
         <style>
             :host {
-                --score-title: '';
+                --score-title: 'comics';
                 display: inline-flex;
                 flex-direction: column;
             }
-            :host(::after) {
+            :host::after {
                 content: var(--score-title);
             }
+
         </style>
-        [[score]]
+        <p id="score">[[score]]</p>
     </template>
     <script>
         class GameScore extends Polymer.Element {
@@ -41,7 +42,9 @@
             
             _scoreChanged() {}
 
-            _titleChanged() {}
+            _titleChanged() {
+                this.style.setProperty('--score-title', `'${this.title}'`);
+            }
         }
         customElements.define(GameScore.is, GameScore);
     </script>
