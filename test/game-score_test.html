@@ -21,7 +21,7 @@
         </template>
     </test-fixture>
 
-    <test-fixture id="ConfiguredFixutre">
+    <test-fixture id="ConfiguredFixture">
         <template>
             <game-score score="137" title="Score"></game-score>
         </template>
@@ -33,8 +33,48 @@
             suite('default properties and methods', () => {
 
                 test('it is registered correctly', function () {
-                    let gameScore = fixture('BasicTestFixture');
-                    assert.ok(gameScore);
+                    let score = fixture('BasicTestFixture');
+                    assert.ok(score);
+                });
+
+                test('it has undefined title when created', function () {
+                    let score = fixture('BasicTestFixture');
+                    assert.strictEqual(score.title, undefined);
+                });
+
+                test('it has score equals 0 when created', function () {
+                    let score = fixture('BasicTestFixture');
+                    assert.strictEqual(score.score, 0);
+                });
+
+            });
+
+            suite('configured properties test', () => {
+
+                test('it has title with expected value ', function () {
+                    let score = fixture('ConfiguredFixture');
+                    assert.strictEqual(score.title, 'Score');
+                });
+
+                test('it has score with expected value ', function () {
+                    let score = fixture('ConfiguredFixture');
+                    assert.strictEqual(score.score, 137);
+                });
+
+            });
+
+            suite('configred content test', () => {
+
+                test('it has title with expected text', () => {
+                    let score = fixture('ConfiguredFixture');
+                    let scoreText = getComputedStyle(score, '::after')
+                        .getPropertyValue('content')
+                    assert.ok(scoreText.includes('Score'));
+                });
+
+                test('it has score with expected text value ', function () {
+                    let score = fixture('ConfiguredFixture');
+                    assert.strictEqual(score.$.score.textContent, '137');
                 });
 
             });
