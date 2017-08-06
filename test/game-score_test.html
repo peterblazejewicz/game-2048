@@ -67,8 +67,7 @@
 
                 test('it has title with expected text', () => {
                     let score = fixture('ConfiguredFixture');
-                    let scoreText = getComputedStyle(score, '::after')
-                        .getPropertyValue('content')
+                    let scoreText = score.$.title.textContent;
                     assert.ok(scoreText.includes('Score'));
                 });
 
