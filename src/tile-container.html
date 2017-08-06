@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="./base-container.html">
-<link rel="import" href="./shared-container-styles.html">
+<link rel="import" href="./mixins/game-container-mixin.html">
+<link rel="import" href="./styles/container-shared-styles.html">
 <link rel="import" href="./tile-cell.html">
 
 <dom-module id="tile-container">
     <template>
-        <style include="shared-container-styles">
+        <style include="container-shared-styles">
         </style>
     </template>
     <script>
-        class TileContainer extends BaseContainerMixin(Polymer.Element) {
+        class TileContainer extends GameContainerMixin(Polymer.Element) {
             static get is() {
                 return 'tile-container';
             }
