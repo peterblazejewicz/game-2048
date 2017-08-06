@@ -72,6 +72,11 @@
                     assert.equal(tile.puzzles.length, 11);
                 });
 
+                test('it has new attribute when it gets created', () => {
+                    let tile = fixture('BasicTestFixture');
+                    assert.ok(tile.hasAttribute('new'));
+                })
+
             });
 
             suite('tile configuration tests', () => {

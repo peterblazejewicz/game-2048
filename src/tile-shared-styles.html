@@ -16,6 +16,20 @@
                 border-radius: calc(1px * var(--tile-border-radius));
 
             }
+            
+            /* appear animation */
+            @keyframes appear {
+                0% {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
         </style>
     </template>
 </dom-module>

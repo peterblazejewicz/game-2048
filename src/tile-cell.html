@@ -7,20 +7,35 @@
     <template>
         <style include="tile-shared-styles">
             :host {
+                --transition-speed: 100ms;
+                --tile-size: 106.25;
+                --tile-gap: 15;
+                --tile-offset: calc(var(--tile-size) + var(--tile-gap));
                 display: flex;
-                flex-direction: columns;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 font-weight: bold;
                 font-size: calc(1px * var(--tile-font-size));
-                background: hsl(var(--tile-color));
                 z-index: 10;
                 position: absolute;
                 top: 15px;
                 left: 15px;
-                transform: translate(calc(121.25px * var(--column)), calc(121.25px * var(--row)));
-                width: 106.25px;
-                height: 106.25px;
+                transform: translate(calc(1px * (var(--tile-offset) * var(--column))), 
+                    calc(1px * (var(--tile-offset) * var(--row))));
+                width: calc(1px * var(--tile-size));
+                height: calc(1px * var(--tile-size));
+                transition: var(--transition-speed) ease-in-out;
+                transition-property: transform;
+            }
+
+            :host #inner {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: calc(1px * var(--tile-size));
+                height: calc(1px * var(--tile-size));
+                background: hsl(var(--tile-color));
             }
 
             :host([visible]) {
@@ -30,60 +45,66 @@
             :host(:not([visible])) {
                 visibility: hidden;
             }
-            :host([value="2"]) {
+            
+            :host([value="2"]) #inner {
                 background: #eee4da;
                 box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0);
             }
-            :host([value="4"]) {
+            :host([value="4"]) #inner {
                 background: #ede0c8;
                 box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0);
             }
-            :host([value="8"]) {
+            :host([value="8"]) #inner {
                 color: #f9f6f2;
                 background: #f2b179;
             }
-            :host([value="16"]) {
+            :host([value="16"]) #inner {
                 color: #f9f6f2;
                 background: #f59563;
             }
-            :host([value="32"]) {
+            :host([value="32"]) #inner {
                 color: #f9f6f2;
                 background: #f67c5f;
             }
-            :host([value="64"]) {
+            :host([value="64"]) #inner {
                 color: #f9f6f2;
                 background: #f65e3b;
             }
 
-            :host([value="128"]) {
+            :host([value="128"]) #inner {
                 color: #f9f6f2;
                 background: #edcf72;
                 box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2381), inset 0 0 0 1px rgba(255, 255, 255, 0.14286);
                 font-size: 45px;
             }
-            :host([value="256"]) {
+            :host([value="256"]) #inner {
                 color: #f9f6f2;
                 background: #edcc61;
                 box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.31746), inset 0 0 0 1px rgba(255, 255, 255, 0.19048);
                 font-size: 45px;
             }
-            :host([value="512"]) {
+            :host([value="512"]) #inner {
                 color: #f9f6f2;
                 background: #edc850;
                 box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.39683), inset 0 0 0 1px rgba(255, 255, 255, 0.2381);
                 font-size: 45px;
             }
-            :host([value="1024"]) {
+            :host([value="1024"]) #inner {
                 color: #f9f6f2;
                 background: #edc53f;
                 box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.47619), inset 0 0 0 1px rgba(255, 255, 255, 0.28571);
                 font-size: 35px;
             }
-            :host([value="2048"]) {
+            :host([value="2048"]) #inner {
                 color: #f9f6f2;
                 background: #edc22e;
                 box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.55556), inset 0 0 0 1px rgba(255, 255, 255, 0.33333);
                 font-size: 35px;
+            }
+
+            :host([new]) #inner{
+                animation: appear 200ms ease var(--transition-speed);
+                animation-fill-mode: backwards;
             }
 
             p {
@@ -92,7 +113,7 @@
                 padding: 0;
             }
         </style>
-        <p>[[value]]</p>
+        <p id="inner">[[value]]</p>
     </template>
     <script>
         class TileCell extends TileMixin(Polymer.Element) {
@@ -138,8 +159,21 @@
                     puzzles: {
                         type: Array,
                         value: () => TileCell.puzzles
+                    },
+                    /**
+                    * when a tile is created it gets new attribute
+                    */
+                    new: {
+                        type: Boolean,
+                        readOnly: true,
+                        reflectToAttribute: true
                     }
                 }
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                this._setNew(true);
             }
 
             /**
