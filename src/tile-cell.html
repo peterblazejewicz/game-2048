@@ -15,6 +15,12 @@
                 font-size: calc(1px * var(--tile-font-size));
                 background: hsl(var(--tile-color));
                 z-index: 10;
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                transform: translate(calc(121.25px * var(--column)), calc(121.25px * var(--row)));
+                width: 106.25px;
+                height: 106.25px;
             }
 
             :host([visible]) {
