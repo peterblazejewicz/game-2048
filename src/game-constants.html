@@ -20,6 +20,26 @@
                     DOWN: 2
                 };
             }
+
+            /**
+            * map key code to direction
+            */
+            static get map() {
+                return {
+                    38: GameConstants.directions.UP,    // UP
+                    39: GameConstants.directions.RIGHT, // RIGHT
+                    40: GameConstants.directions.DOWN,  // DOWN
+                    37: GameConstants.directions.LEFT,  // LEFT
+                    75: GameConstants.directions.UP,    // Vim up
+                    76: GameConstants.directions.RIGHT, // Vim right
+                    74: GameConstants.directions.DOWN,  // Vim down
+                    72: GameConstants.directions.LEFT,  // Vim left
+                    87: GameConstants.directions.UP,    // W
+                    68: GameConstants.directions.RIGHT, // D
+                    83: GameConstants.directions.DOWN,  // S
+                    65: GameConstants.directions.LEFT   // A
+                }
+            }
         }
     </script>
 </dom-module>

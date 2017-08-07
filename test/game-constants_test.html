@@ -38,6 +38,25 @@
 
             });
 
+            suite('maps', () => {
+
+                test('it has an object with key mapping', () => {
+                    assert.notEqual(GameConstants.map, undefined);
+                    assert.ok(GameConstants.map instanceof Object);
+                });
+
+                test('it has mapping for LEFT (37) key code', () => {
+                    assert.ok(GameConstants.map[37]);
+                    assert.equal(GameConstants.map[37], GameConstants.directions.LEFT);
+                });
+
+                test('it has mapping for DOWN (40) key code', () => {
+                    assert.ok(GameConstants.map[40]);
+                    assert.equal(GameConstants.map[40], GameConstants.directions.DOWN);
+                });
+
+            });
+
         });
     </script>
 
