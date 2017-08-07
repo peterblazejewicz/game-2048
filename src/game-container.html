@@ -51,18 +51,22 @@
             constructor() {
                 super();
                 this.__trackHandler = this.__trackHandler.bind(this);
-            }
-            ready() {
-                super.ready();
-                Polymer.Gestures.addListener(this, 'track', this.__trackHandler);
-
+                this.__keyDownHandler = this.__keyDownHandler.bind(this);
             }
 
             connectedCallback() {
                 super.connectedCallback();
+                Polymer.Gestures.addListener(this, 'track', this.__trackHandler);
+                document.addEventListener('keydown', this.__keyDownHandler);
                 this._setTileContainer(this.$.tiles.assignedNodes()[0]);
                 this._setGridContainer(this.$.grids.assignedNodes()[0]);
                 this._setGameMessage(this.$.message.assignedNodes()[0]);
+            }
+
+            disconnectedCallback() {
+                super.disconnectedCallback();
+                Polymer.Gestures.removeListener(this, 'track', this.__trackHandler);
+                document.removeEventListener('keydown', this.__keyDownHandler);
             }
 
             /**
@@ -80,6 +84,24 @@
                         break;
                 }
             }
+
+            /**
+            * handle key downs
+            */
+            __keyDownHandler(event) {
+                const modifiers = event.altKey
+                    || event.ctrlKey
+                    || event.metaKey
+                    || event.shiftKey;
+                const direction = GameConstants.map[event.which];
+                if(!modifiers) {
+                    if(undefined !== direction) {
+                        event.preventDefault();
+                        this.__emitMove(direction);
+                    }
+                }
+            }
+
             /**
             * converts actual touch move into directions
             */
@@ -97,7 +119,11 @@
             }
 
             __emitMove(direction) {
-                // @TODO
+                const event = new CustomEvent(GameConstants.gameEventType, {detail: {
+                        action: GameConstants.actions.Move,
+                        direction
+                    }});
+                this.dispatchEvent(event);
             }
 
         }

@@ -40,6 +40,22 @@
                     65: GameConstants.directions.LEFT   // A
                 }
             }
+
+            /**
+            * Game supported actions
+            */
+            static get actions() {
+                return {
+                    Move: 'Move',
+                    Restart: 'Restart',
+                    KeepPlaing: 'KeepPlaying',
+                }
+            }
+
+            /**
+            * game event type const
+            */
+            static get gameEventType() { return 'game-event'; }
         }
     </script>
 </dom-module>
