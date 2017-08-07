@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="./tile-container.html">
 <link rel="import" href="./grid-container.html">
 <link rel="import" href="./game-message.html">
+<link rel="import" href="./game-constants.html">
 
 <dom-module id="game-container">
     <template>
@@ -27,7 +29,7 @@
         <slot id="tiles" name="tiles"></slot>
     </template>
     <script>
-        class GameContainer extends Polymer.Element {
+        class GameContainer extends Polymer.GestureEventListeners(Polymer.Element) {
             static get is() { return 'game-container'; }
             static get properties() {
                 return {
@@ -45,8 +47,15 @@
                     }
                 }
             }
+
+            constructor() {
+                super();
+                this.__trackHandler = this.__trackHandler.bind(this);
+            }
             ready() {
                 super.ready();
+                Polymer.Gestures.addListener(this, 'track', this.__trackHandler);
+
             }
 
             connectedCallback() {
@@ -54,6 +63,41 @@
                 this._setTileContainer(this.$.tiles.assignedNodes()[0]);
                 this._setGridContainer(this.$.grids.assignedNodes()[0]);
                 this._setGameMessage(this.$.message.assignedNodes()[0]);
+            }
+
+            /**
+            * only swipe support (when it ends)
+            */
+            __trackHandler(event) {
+                switch(event.detail.state) {
+                    case 'end':
+                        this.__handleTouchEnd(event);
+                        break;
+                    case 'start':
+                    case 'track':
+                    default:
+                        // nothing
+                        break;
+                }
+            }
+            /**
+            * converts actual touch move into directions
+            */
+            __handleTouchEnd(event) {
+                const offset = 10;
+                const absDx = Math.abs(event.detail.dx);
+                const absDy = Math.abs(event.detail.dy)
+                if(Math.max(absDx, absDy) > offset) {
+                    if(absDx > absDy) {
+                        (event.detail.dx > 0) ? this.__emitMove(GameConstants.directions.RIGHT) : this.__emitMove(GameConstants.directions.LEFT);
+                    } else {
+                        (event.detail.dy > 0) ? this.__emitMove(GameConstants.directions.DOWN) : this.__emitMove(GameConstants.directions.UP);
+                    }
+                }
+            }
+
+            __emitMove(direction) {
+                // @TODO
             }
 
         }
