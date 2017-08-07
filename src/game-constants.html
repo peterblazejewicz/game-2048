@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<dom-module id="game-constants">
+    <script>
+        /**
+        * shared definitionc, contants and values
+        */
+        class GameConstants {
+            /**
+            * Direction mapping to:
+            * 1 - left
+            * 3 - right
+            * 0 - up
+            * 2 - down
+            */
+            static get directions() {
+                return {
+                    LEFT: 1,
+                    RIGHT: 3,
+                    UP: 0,
+                    DOWN: 2
+                };
+            }
+        }
+    </script>
+</dom-module>

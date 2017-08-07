@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>GameContants Tests</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../src/game-constants.html">
+</head>
+
+<body>
+
+    <script>
+        suite('game-constants', () => {
+
+            suite('contants', () => {
+
+                test('it has 1 as LEFT direction', () => {
+                    assert.equal(GameConstants.directions.LEFT, 1);
+                });
+
+                test('it has 3 as RIGHT direction', () => {
+                    assert.equal(GameConstants.directions.RIGHT, 3);
+                });
+
+                test('it has 0 as UP direction', () => {
+                    assert.equal(GameConstants.directions.UP, 0);
+                });
+
+                test('it has 2 as DOWN direction', () => {
+                    assert.equal(GameConstants.directions.DOWN, 2);
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
