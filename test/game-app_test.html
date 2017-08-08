@@ -25,12 +25,37 @@
     <script>
         suite('game-app', () => {
 
+            let app;
+
             suite('game-app defaults', () => {
 
+                setup(() => {
+                    app = fixture('AppFixture');
+                });
+
                 test('it has Init state by default', () => {
-                    let app = fixture('AppFixture');
                     assert.equal(app.state, GameConstants.state.Init);
                 });
+
+                test('it has 4 x 4 cells filled with 0 by start', () => {
+                    assert.equal(app.cells.length, 4);
+                    app.cells.forEach(row => {
+                        assert.equal(row.length, 4);
+                        row.forEach(cell => {
+                            assert.equal(cell, 0);
+                        });
+                    });
+                });
+
+                test("it has score of 0", () => {
+                    assert.equal(app.score, 0);
+                    assert.equal(app.$.controls.score, 0);
+                });
+
+                test('it has bestScore of 0', () => {
+                    assert.equal(app.bestScore, 0);
+                    assert.equal(app.$.controls.bestScore, 0);
+                })
 
             })
 

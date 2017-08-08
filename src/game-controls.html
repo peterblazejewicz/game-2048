@@ -52,7 +52,7 @@
         <div id="heading">
             <h1 id="title">[[title]]</h1>
             <div id="scores">
-                <game-score id="score" score="[[gameScore]]" title="Score"></game-score>
+                <game-score id="score" score="[[score]]" title="Score"></game-score>
                 <game-score id="best-score" score="[[bestScore]]" title="Best Score"></game-score>
             </div>
         </div>
@@ -75,7 +75,7 @@
                     /**
                     * current game score
                     */
-                    gameScore: {
+                    score: {
                         type: Number,
                         value: 178,
                         notify: true

@@ -53,7 +53,7 @@
       }
 
     </style>
-    <game-controls title="2048"></game-controls>
+    <game-controls id="controls" title="2048" score="[[score]]" best-score="[[bestScore]]"></game-controls>
     <game-container id="game">
         <game-message slot="message"></game-message>
         <grid-container id="grid" slot="grids" size="[[size]]" cells="[[cells]]"></grid-container>
@@ -71,6 +71,9 @@
       static get properties() {
         return {
 
+          /**
+          * the state of the game
+          */
           state: {
             type: String,
             value: () => {
@@ -79,19 +82,48 @@
             observer: '__stateChanged'
           },
 
+          /**
+          * game actual score
+          */
+          score: {
+            type: Number,
+            value: 0,
+            notify: true
+          },
+
+          /**
+          * game best score
+          */
+          bestScore: {
+            type: Number,
+            value: 0,
+            notify: true
+          },
+
+          /**
+          * the size of the cells grid
+          */
           size: {
             type: Number,
             value: 4
           },
 
+          /**
+          * definition of cells
+          * [ROWS][COLS]
+          * [0,2,0,4],
+          * [32,16,2,0],
+          * [0,64,64,128],
+          * [256,0,0,512]
+          */
           cells: {
             type: Array,
             value: () => {
               return [
-                [0,2,0,4],
-                [32,16,2,0],
-                [0,64,64,128],
-                [256,0,0,512]
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0]
               ];
             }
           }
