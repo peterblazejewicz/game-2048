@@ -55,7 +55,15 @@
                 test('it has bestScore of 0', () => {
                     assert.equal(app.bestScore, 0);
                     assert.equal(app.$.controls.bestScore, 0);
-                })
+                });
+
+                test('it is not on start', () => {
+                    assert.equal(app.won, false);
+                });
+
+                test('it is not over on start', () => {
+                    assert.equal(app.over, false);
+                });
 
             })
 
