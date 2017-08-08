@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="./game-score.html">
+<link rel="import" href="./game-constants.html">
 
 <dom-module id="game-controls">
     <template>
@@ -39,14 +40,15 @@
             }
             #restart {
                 display: block;
+                height: 40px;
                 padding: 10px 20px;
                 background-color: #8f7a66;
                 border-radius: 3px;
                 color: #f9f6f2;
                 font-weight: bolder;
+                font-size: 1rem;
                 line-height: 1;
                 box-sizing: border-box;
-                height: 40px;
             }
         </style>
         <div id="heading">
@@ -58,7 +60,7 @@
         </div>
         <div id="cta">
             <p id="intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-            <a id="restart">New Game</a>
+            <button id="restart" on-click="__handleNewGame">New Game</button>
         </div>
     </template>
     <script>
@@ -89,6 +91,17 @@
                         notify: true
                     }
                 }
+            }
+            /**
+            * new game button click
+            */
+            __handleNewGame(event) {
+                const evt = new CustomEvent(GameConstants.gameEventType, {
+                    detail: {
+                        action: GameConstants.actions.Restart
+                    }
+                });
+                this.dispatchEvent(evt);
             }
         }
         customElements.define(GameControls.is, GameControls);
