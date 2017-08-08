@@ -56,6 +56,20 @@
             * game event type const
             */
             static get gameEventType() { return 'game-event'; }
+
+            /**
+            * game state
+            */ 
+            static get state() {
+                return {
+                    Init: 'init',
+                    Setup: 'setup',
+                    Game: 'game',
+                    Restart: 'restart',
+                    Over: 'over'
+                }
+            }
+
         }
     </script>
 </dom-module>
