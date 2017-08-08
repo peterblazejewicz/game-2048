@@ -71,6 +71,14 @@
       static get properties() {
         return {
 
+          state: {
+            type: String,
+            value: () => {
+              return GameConstants.state.Init
+            },
+            observer: '__stateChanged'
+          },
+
           size: {
             type: Number,
             value: 4
@@ -102,11 +110,20 @@
 
       disconnectedCallback() {
         super.disconnectedCallback();
-        this.$.game.removeEventListner(GameConstants.gameEventType, this.__handleGameEvent);
+        this.$.game.removeEventListener(GameConstants.gameEventType, this.__handleGameEvent);
       }
 
       __handleGameEvent(event) {
         console.log(event.detail);
+      }
+
+      __stateChanged() {
+        switch(this.state) {
+          case GameConstants.state.Init:
+            break;
+          case GameConstants.state.Over:
+            break;
+        }
       }
 
     }

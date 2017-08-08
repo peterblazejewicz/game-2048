@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>GameApp Tests</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../src/game-app.html">
+    <link rel="import" href="../src/game-constants.html">
+</head>
+
+<body>
+
+    <test-fixture id="AppFixture">
+        <template>
+            <game-app></game-app>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('game-app', () => {
+
+            suite('game-app defaults', () => {
+
+                test('it has Init state by default', () => {
+                    let app = fixture('AppFixture');
+                    assert.equal(app.state, GameConstants.state.Init);
+                });
+
+            })
+
+        });
+    </script>
+
+</body>
+
+</html>
