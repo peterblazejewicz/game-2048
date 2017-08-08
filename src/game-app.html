@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="./game-controls.html">
 <link rel="import" href="./game-container.html">
 <link rel="import" href="./tile-container.html">
@@ -53,6 +54,7 @@
       }
 
     </style>
+    <app-localstorage-document id="storage" key="game2048" data="{{gameState}}"></app-localstorage-document>
     <game-controls id="controls" title="2048" score="[[score]]" best-score="[[bestScore]]"></game-controls>
     <game-container id="game">
         <game-message slot="message"></game-message>
@@ -122,6 +124,18 @@
           size: {
             type: Number,
             value: 4
+          },
+
+          /**
+          * the game state
+          * can be serialized and deserialized from storage
+          */
+          gameState: {
+            type: Object,
+            notify: true,
+            value: () => {
+              return {}
+            }
           },
 
           /**
