@@ -9,7 +9,7 @@
 <dom-module id="game-container">
     <template>
         <style>
-            :host {
+             :host {
                 position: relative;
                 padding: 15px;
                 cursor: default;
@@ -23,6 +23,7 @@
                 background: var(--background-color-darker);
                 border-radius: 6px;
             }
+
         </style>
         <slot id="message" name="message"></slot>
         <slot id="grids" name="grids"></slot>
@@ -30,7 +31,9 @@
     </template>
     <script>
         class GameContainer extends Polymer.GestureEventListeners(Polymer.Element) {
-            static get is() { return 'game-container'; }
+            static get is() {
+                return 'game-container';
+            }
             static get properties() {
                 return {
                     tileContainer: {
@@ -70,10 +73,10 @@
             }
 
             /**
-            * only swipe support (when it ends)
-            */
+             * only swipe support (when it ends)
+             */
             __trackHandler(event) {
-                switch(event.detail.state) {
+                switch (event.detail.state) {
                     case 'end':
                         this.__handleTouchEnd(event);
                         break;
@@ -86,16 +89,16 @@
             }
 
             /**
-            * handle key downs
-            */
+             * handle key downs
+             */
             __keyDownHandler(event) {
-                const modifiers = event.altKey
-                    || event.ctrlKey
-                    || event.metaKey
-                    || event.shiftKey;
+                const modifiers = event.altKey ||
+                    event.ctrlKey ||
+                    event.metaKey ||
+                    event.shiftKey;
                 const direction = GameConstants.map[event.which];
-                if(!modifiers) {
-                    if(undefined !== direction) {
+                if (!modifiers) {
+                    if (undefined !== direction) {
                         event.preventDefault();
                         this.__emitMove(direction);
                     }
@@ -103,30 +106,35 @@
             }
 
             /**
-            * converts actual touch move into directions
-            */
+             * converts actual touch move into directions
+             */
             __handleTouchEnd(event) {
                 const offset = 10;
                 const absDx = Math.abs(event.detail.dx);
                 const absDy = Math.abs(event.detail.dy)
-                if(Math.max(absDx, absDy) > offset) {
-                    if(absDx > absDy) {
-                        (event.detail.dx > 0) ? this.__emitMove(GameConstants.directions.RIGHT) : this.__emitMove(GameConstants.directions.LEFT);
+                if (Math.max(absDx, absDy) > offset) {
+                    if (absDx > absDy) {
+                        (event.detail.dx > 0) ? this.__emitMove(GameConstants.directions.RIGHT): this.__emitMove(
+                            GameConstants.directions.LEFT);
                     } else {
-                        (event.detail.dy > 0) ? this.__emitMove(GameConstants.directions.DOWN) : this.__emitMove(GameConstants.directions.UP);
+                        (event.detail.dy > 0) ? this.__emitMove(GameConstants.directions.DOWN): this.__emitMove(
+                            GameConstants.directions.UP);
                     }
                 }
             }
 
             __emitMove(direction) {
-                const event = new CustomEvent(GameConstants.gameEventType, {detail: {
+                const event = new CustomEvent(GameConstants.gameEventType, {
+                    detail: {
                         action: GameConstants.actions.Move,
                         direction
-                    }});
+                    }
+                });
                 this.dispatchEvent(event);
             }
 
         }
         customElements.define(GameContainer.is, GameContainer);
+
     </script>
 </dom-module>

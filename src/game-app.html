@@ -8,188 +8,235 @@
 <link rel="import" href="./game-message.html">
 
 <dom-module id="game-app">
-  <template>
-    <style>
-      :host {
-        font-family: 'Open Sans Condensed', sans-serif;
-        font-size: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        --game-width: 500px;
-        --game-height: 500px;
-        width: var(--game-width);
-        margin: 0 auto;
-      }
-
-      game-controls {
-        width: 100%;
-      }
-
-      game-container {
-        margin-top: 40px;
-      }
-
-      game-container,
-      tile-container {
-        width: var(--game-width);
-        height: var(--game-height);
-        box-sizing: border-box;
-      }
-
-      game-message {
-        display: none;
-      }
-
-      tile-container {
-        z-index: 2;
-      }
-
-      @media screen and (max-width: 520px) {
-        :host {
-          --game-width: 280px;
-          --game-height: 280px;
-        }
-      }
-
-    </style>
-    <app-localstorage-document id="storage" key="game2048" data="{{gameState}}"></app-localstorage-document>
-    <game-controls id="controls" title="2048" score="[[score]]" best-score="[[bestScore]]"></game-controls>
-    <game-container id="game">
-        <game-message slot="message"></game-message>
-        <grid-container id="grid" slot="grids" size="[[size]]" cells="[[cells]]"></grid-container>
-        <tile-container id="tiles" slot="tiles" size="[[size]]" cells="[[cells]]"></tile-container>
-    </game-container>
-  </template>
-
-  <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class GameApp extends Polymer.Element {
-      static get is() { return 'game-app'; }
-      static get properties() {
-        return {
-
-          /**
-          * the state of the game
-          */
-          state: {
-            type: String,
-            value: () => {
-              return GameConstants.state.Init
-            },
-            observer: '__stateChanged'
-          },
-
-          /**
-          * game actual score
-          */
-          score: {
-            type: Number,
-            value: 0,
-            notify: true
-          },
-
-          /**
-          * game best score
-          */
-          bestScore: {
-            type: Number,
-            value: 0,
-            notify: true
-          },
-
-          /**
-          * is this game over?
-          */
-          over: {
-            type: Boolean,
-            value: false
-          },
-
-          /**
-          * is this game already won?
-          */
-          won: {
-            type: Boolean,
-            value: false
-          },
-
-          /**
-          * the size of the cells grid
-          */
-          size: {
-            type: Number,
-            value: 4
-          },
-
-          /**
-          * the game state
-          * can be serialized and deserialized from storage
-          */
-          gameState: {
-            type: Object,
-            notify: true,
-            value: () => {
-              return {}
+    <template>
+        <style>
+             :host {
+                font-family: 'Open Sans Condensed', sans-serif;
+                font-size: 1rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                --game-width: 500px;
+                --game-height: 500px;
+                width: var(--game-width);
+                margin: 0 auto;
             }
-          },
 
-          /**
-          * definition of cells
-          * [ROWS][COLS]
-          * [0,2,0,4],
-          * [32,16,2,0],
-          * [0,64,64,128],
-          * [256,0,0,512]
-          */
-          cells: {
-            type: Array,
-            value: () => {
-              return [
-                [0,0,0,0],
-                [0,0,0,0],
-                [0,0,0,0],
-                [0,0,0,0]
-              ];
+            game-controls {
+                width: 100%;
             }
-          }
-        };
-      }
 
-      constructor() {
-        super();
-        this.__handleGameEvent = this.__handleGameEvent.bind(this);
-      }
+            game-container {
+                margin-top: 40px;
+            }
 
-      ready() {
-        super.ready();
-        this.$.game.addEventListener(GameConstants.gameEventType, this.__handleGameEvent);
-      }
+            game-container,
+            tile-container {
+                width: var(--game-width);
+                height: var(--game-height);
+                box-sizing: border-box;
+            }
 
-      disconnectedCallback() {
-        super.disconnectedCallback();
-        this.$.game.removeEventListener(GameConstants.gameEventType, this.__handleGameEvent);
-      }
+            game-message {
+                display: none;
+            }
 
-      __handleGameEvent(event) {
-        console.log(event.detail);
-      }
+            tile-container {
+                z-index: 2;
+            }
 
-      __stateChanged() {
-        switch(this.state) {
-          case GameConstants.state.Init:
-            break;
-          case GameConstants.state.Over:
-            break;
+            @media screen and (max-width: 520px) {
+                 :host {
+                    --game-width: 280px;
+                    --game-height: 280px;
+                }
+            }
+
+        </style>
+        <app-localstorage-document id="storage" key="game2048" data="{{gameState}}"></app-localstorage-document>
+        <game-controls id="controls" title="2048" score="[[score]]" best-score="[[bestScore]]"></game-controls>
+        <game-container id="game">
+            <game-message slot="message"></game-message>
+            <grid-container id="grid" slot="grids" size="[[size]]" cells="[[cells]]"></grid-container>
+            <tile-container id="tiles" slot="tiles" size="[[size]]" cells="[[cells]]"></tile-container>
+        </game-container>
+    </template>
+
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class GameApp extends Polymer.Element {
+            static get is() {
+                return 'game-app';
+            }
+            static get properties() {
+                return {
+
+                    /**
+                     * the state of the game
+                     */
+                    state: {
+                        type: String,
+                        value: () => {
+                            return GameConstants.state.Init
+                        },
+                        observer: '__stateChanged'
+                    },
+
+                    /**
+                     * game actual score
+                     */
+                    score: {
+                        type: Number,
+                        value: 0,
+                        notify: true
+                    },
+
+                    /**
+                     * game best score
+                     */
+                    bestScore: {
+                        type: Number,
+                        value: 0,
+                        notify: true
+                    },
+
+                    /**
+                     * is this game over?
+                     */
+                    over: {
+                        type: Boolean,
+                        value: false
+                    },
+
+                    /**
+                     * is this game already won?
+                     */
+                    won: {
+                        type: Boolean,
+                        value: false
+                    },
+
+                    /**
+                     * the size of the cells grid
+                     */
+                    size: {
+                        type: Number,
+                        value: 4
+                    },
+
+                    /**
+                     * the number of start tiles
+                     */
+                    startTile: {
+                        type: Number,
+                        value: 2
+                    },
+
+                    /**
+                     * the game state
+                     * can be serialized and deserialized from storage
+                     */
+                    gameState: {
+                        type: Object,
+                        notify: true,
+                        value: () => {
+                            return {}
+                        }
+                    },
+
+                    /**
+                     * definition of cells
+                     * [ROWS][COLS]
+                     * [0,2,0,4],
+                     * [32,16,2,0],
+                     * [0,64,64,128],
+                     * [256,0,0,512]
+                     */
+                    cells: {
+                        type: Array,
+                        value: () => {
+                            return [
+                                [0, 0, 0, 0],
+                                [0, 0, 0, 0],
+                                [0, 0, 0, 0],
+                                [0, 0, 0, 0]
+                            ];
+                        }
+                    }
+                };
+            }
+
+            constructor() {
+                super();
+                this.__handleGameEvent = this.__handleGameEvent.bind(this);
+            }
+
+            ready() {
+                super.ready();
+                this.$.game.addEventListener(GameConstants.gameEventType, this.__handleGameEvent);
+                this.$.controls.addEventListener(GameConstants.gameEventType, this.__handleGameEvent);
+                this.__setup();
+            }
+
+            disconnectedCallback() {
+                super.disconnectedCallback();
+                this.$.game.removeEventListener(GameConstants.gameEventType, this.__handleGameEvent);
+                this.$.controls.removeEventListener(GameConstants.gameEventType, this.__handleGameEvent);
+            }
+
+            __handleGameEvent(event) {
+                switch (event.detail.action) {
+                    case GameConstants.actions.Restart:
+                        this._restart();
+                        break;
+                    case GameConstants.actions.Move:
+                        this._move(event.detail);
+                        break;
+                }
+            }
+
+            __stateChanged() {
+                switch (this.state) {
+                    case GameConstants.state.Init:
+                        break;
+                    case GameConstants.state.Over:
+                        break;
+                }
+            }
+
+            // game actions
+
+            /**
+             * Restart game
+             */
+            _restart() {
+                this.gameState = {
+
+                }
+                this.__setup();
+            }
+
+            /**
+             * move a tile
+             */
+            _move(detail) {
+
+            }
+
+            /**
+             * setup a new game
+             */
+            __setup() {
+                const previousGame = this.gameState;
+                console.log(previousGame);
+            }
+
         }
-      }
+        window.customElements.define(GameApp.is, GameApp);
 
-    }
-    window.customElements.define(GameApp.is, GameApp);
-
-  </script>
+    </script>
 </dom-module>

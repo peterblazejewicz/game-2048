@@ -1,14 +1,15 @@
+<!DOCTYPE html>
 <dom-module id="game-state">
     <script>
         /**
-        * the game state
-        */
+         * the game state
+         */
         class GameState {
             /**
-            * creates new instance of GameState
-            * @param {Number} the size of the grid
-            * @param {Array} the actual cells
-            */
+             * creates new instance of GameState
+             * @param {Number} the size of the grid
+             * @param {Array} the actual cells
+             */
             constructor(size, cells) {
                 this._grid = new GameGrid(size, cells);
                 this.won = false;
@@ -17,8 +18,8 @@
             }
 
             /**
-            * @property {GameGrid} the grid
-            */
+             * @property {GameGrid} the grid
+             */
             get grid() {
                 return this._grid;
             }
@@ -27,8 +28,8 @@
             }
 
             /**
-            * @property {Number} a game score
-            */
+             * @property {Number} a game score
+             */
             get score() {
                 return this._score;
             }
@@ -37,8 +38,8 @@
             }
 
             /**
-            * @property {Boolean} is the game won?
-            */
+             * @property {Boolean} is the game won?
+             */
             get won() {
                 return this._won;
             }
@@ -47,8 +48,8 @@
             }
 
             /**
-            * @property {Boolean} should the game keep playing after reaching top cell?
-            */
+             * @property {Boolean} should the game keep playing after reaching top cell?
+             */
             get keepPlaying() {
                 return this._keepPlaying;
             }
@@ -58,22 +59,22 @@
         }
 
         /**
-        * the representation of the game grid
-        */
+         * the representation of the game grid
+         */
         class GameGrid {
             /**
-            * @constructor
-            * @param {Number} the size of the grid
-            * @param {Array} the grid cells
-            */
+             * @constructor
+             * @param {Number} the size of the grid
+             * @param {Array} the grid cells
+             */
             constructor(size, cells) {
                 this.size = size;
                 this.cells = cells;
             }
 
             /**
-            * @property {Number} the size of the grid (a dimension)
-            */
+             * @property {Number} the size of the grid (a dimension)
+             */
             get size() {
                 return this._size;
             }
@@ -82,9 +83,9 @@
             }
 
             /**
-            * @property {Array} the multidimensional array with rows
-            * and columns 
-            */
+             * @property {Array} the multidimensional array with rows
+             * and columns
+             */
             get cells() {
                 return this._cells;
             }
@@ -92,5 +93,6 @@
                 this._cells = value;
             }
         }
+
     </script>
 </dom-module>

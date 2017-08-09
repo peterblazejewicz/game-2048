@@ -6,7 +6,7 @@
 <dom-module id="game-controls">
     <template>
         <style>
-            :host {
+             :host {
                 display: flex;
                 flex-direction: column;
             }
@@ -38,6 +38,7 @@
                 margin: 0;
                 padding: 0;
             }
+
             #restart {
                 display: block;
                 height: 40px;
@@ -50,6 +51,7 @@
                 line-height: 1;
                 box-sizing: border-box;
             }
+
         </style>
         <div id="heading">
             <h1 id="title">[[title]]</h1>
@@ -65,26 +67,28 @@
     </template>
     <script>
         class GameControls extends Polymer.Element {
-            static get is() { return 'game-controls'; }
+            static get is() {
+                return 'game-controls';
+            }
             static get properties() {
                 return {
                     /**
-                    * title of the game
-                    */
+                     * title of the game
+                     */
                     title: {
                         type: String,
                     },
                     /**
-                    * current game score
-                    */
+                     * current game score
+                     */
                     score: {
                         type: Number,
                         value: 178,
                         notify: true
                     },
                     /**
-                    * current best score of the game
-                    */
+                     * current best score of the game
+                     */
                     bestScore: {
                         type: Number,
                         value: 125,
@@ -93,8 +97,8 @@
                 }
             }
             /**
-            * new game button click
-            */
+             * new game button click
+             */
             __handleNewGame(event) {
                 const evt = new CustomEvent(GameConstants.gameEventType, {
                     detail: {
@@ -105,5 +109,6 @@
             }
         }
         customElements.define(GameControls.is, GameControls);
+
     </script>
 </dom-module>

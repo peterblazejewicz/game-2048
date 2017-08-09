@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <dom-module id="game-score">
-    <template> 
+    <template>
         <style>
-            :host {
+             :host {
                 --score-background: #bbada0;
                 --score-color: white;
                 --score-font-size: 25px;
@@ -35,6 +35,7 @@
                 justify-content: space-around;
                 align-items: center;
             }
+
             dt,
             dd {
                 margin: 0;
@@ -58,20 +59,22 @@
     </template>
     <script>
         class GameScore extends Polymer.Element {
-            static get is() { return 'game-score'; }
+            static get is() {
+                return 'game-score';
+            }
             static get properties() {
                 return {
                     /**
-                    * a title of this score
-                    */
+                     * a title of this score
+                     */
                     title: {
                         type: String,
                         reflectToAttribute: true,
                         observer: '_titleChanged'
                     },
                     /**
-                    * The score to display
-                    */
+                     * The score to display
+                     */
                     score: {
                         type: Number,
                         value: 0,
@@ -80,12 +83,12 @@
                     }
                 }
             }
-            
+
             _scoreChanged() {}
 
-            _titleChanged() {
-            }
+            _titleChanged() {}
         }
         customElements.define(GameScore.is, GameScore);
+
     </script>
 </dom-module>

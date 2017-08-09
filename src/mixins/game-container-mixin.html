@@ -6,16 +6,16 @@
                 static get properties() {
                     return {
                         /**
-                        * the size of the grid {n} cols {n} rows
-                        */
+                         * the size of the grid {n} cols {n} rows
+                         */
                         size: {
                             type: Number,
                             observer: '_sizeChanged'
 
                         },
                         /**
-                        * references to the cells
-                        */
+                         * references to the cells
+                         */
                         cells: {
                             type: Array,
                             observer: '_cellsChanged'
@@ -24,24 +24,25 @@
                 }
 
                 /**
-                * when the size changes rebuild cells
-                */
+                 * when the size changes rebuild cells
+                 */
                 _sizeChanged() {
                     this.style.setProperty('--size', this.size || 0);
                 }
 
                 /**
-                * when the cells array changes
-                */
+                 * when the cells array changes
+                 */
                 _cellsChanged() {}
 
                 /**
-                * Max size of the grid {N} * {N} POW({N})
-                */
+                 * Max size of the grid {N} * {N} POW({N})
+                 */
                 get maxSize() {
                     return Math.pow((this.size || 0), 2);
                 }
             }
         }
+
     </script>
 </dom-module>

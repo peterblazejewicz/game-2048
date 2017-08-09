@@ -2,16 +2,16 @@
 <dom-module id="game-constants">
     <script>
         /**
-        * shared definitionc, contants and values
-        */
+         * shared definitionc, contants and values
+         */
         class GameConstants {
             /**
-            * Direction mapping to:
-            * 1 - left
-            * 3 - right
-            * 0 - up
-            * 2 - down
-            */
+             * Direction mapping to:
+             * 1 - left
+             * 3 - right
+             * 0 - up
+             * 2 - down
+             */
             static get directions() {
                 return {
                     LEFT: 1,
@@ -22,28 +22,28 @@
             }
 
             /**
-            * map key code to direction
-            */
+             * map key code to direction
+             */
             static get map() {
                 return {
-                    38: GameConstants.directions.UP,    // UP
+                    38: GameConstants.directions.UP, // UP
                     39: GameConstants.directions.RIGHT, // RIGHT
-                    40: GameConstants.directions.DOWN,  // DOWN
-                    37: GameConstants.directions.LEFT,  // LEFT
-                    75: GameConstants.directions.UP,    // Vim up
+                    40: GameConstants.directions.DOWN, // DOWN
+                    37: GameConstants.directions.LEFT, // LEFT
+                    75: GameConstants.directions.UP, // Vim up
                     76: GameConstants.directions.RIGHT, // Vim right
-                    74: GameConstants.directions.DOWN,  // Vim down
-                    72: GameConstants.directions.LEFT,  // Vim left
-                    87: GameConstants.directions.UP,    // W
+                    74: GameConstants.directions.DOWN, // Vim down
+                    72: GameConstants.directions.LEFT, // Vim left
+                    87: GameConstants.directions.UP, // W
                     68: GameConstants.directions.RIGHT, // D
-                    83: GameConstants.directions.DOWN,  // S
-                    65: GameConstants.directions.LEFT   // A
+                    83: GameConstants.directions.DOWN, // S
+                    65: GameConstants.directions.LEFT // A
                 }
             }
 
             /**
-            * Game supported actions
-            */
+             * Game supported actions
+             */
             static get actions() {
                 return {
                     Move: 'Move',
@@ -53,13 +53,15 @@
             }
 
             /**
-            * game event type const
-            */
-            static get gameEventType() { return 'game-event'; }
+             * game event type const
+             */
+            static get gameEventType() {
+                return 'game-event';
+            }
 
             /**
-            * game state
-            */ 
+             * game state
+             */
             static get state() {
                 return {
                     Init: 'init',
@@ -71,5 +73,6 @@
             }
 
         }
+
     </script>
 </dom-module>

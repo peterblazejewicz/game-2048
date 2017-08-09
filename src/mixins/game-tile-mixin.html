@@ -4,8 +4,8 @@
         GameTileMixin = (superclass) => {
             return class extends superclass {
                 /**
-                * basic properties of tile are row and column
-                */
+                 * basic properties of tile are row and column
+                 */
                 static get properties() {
                     return {
                         column: {
@@ -20,19 +20,20 @@
                     }
                 }
                 /**
-                * update a CSS bound --column property
-                */
+                 * update a CSS bound --column property
+                 */
                 _columnChanged() {
                     this.style.setProperty('--column', this.column || 0);
                 }
 
                 /**
-                * update a CSS bound --row property
-                */
+                 * update a CSS bound --row property
+                 */
                 _rowChanged() {
                     this.style.setProperty('--row', this.row || 0);
                 }
             }
         }
+
     </script>
 </dom-module>
