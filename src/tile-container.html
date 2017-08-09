@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="./mixins/game-container-mixin.html">
 <link rel="import" href="./styles/container-shared-styles.html">
+<link rel="import" href="./game-state.html">
 <link rel="import" href="./tile-cell.html">
 
 <dom-module id="tile-container">
@@ -14,6 +15,47 @@
             static get is() {
                 return 'tile-container';
             }
+            /**
+            * Tile container specific properties
+            */
+            static get properties() {
+                return {
+                    /**
+                    * the previous state of a game (if passed from parent)
+                    */
+                    previousState: {
+                        type: GameState
+                    }
+                }
+            }
+
+            /**
+            * @property {Array} readonly map of available cells
+            */
+            get availableCells() {
+                let cells = [];
+                this.cells.forEach((row, rowIndex) => {
+                    row.forEach((cell, columnIndex) => {
+                        if(cell === 0) {
+                            cells.push({
+                                row: rowIndex,
+                                column: columnIndex
+                            });
+                        }
+                    });
+                });
+                return cells;
+            }
+
+            /**
+            * @returns {Object} info about available cell
+            */
+            get randomAvailableCell() {
+                const cells = this.availableCells;
+                if(cells.length) {
+                    return cells[Math.floor(Math.random() * cells.length)];
+                }
+            }
 
             /**
              * Overriden from super class
@@ -21,21 +63,51 @@
             _cellsChanged() {
                 super._cellsChanged();
                 this.__removeTiles();
-                this.__addTiles();
             }
 
-            __addTiles() {
+            setup() {
+                if(this.previousState) {
+                    this.size = this.previousState.grid.size;
+                    this.cells = this.previousState.grid.cells.clone();
+                } else {
+                    this.cells = this.__emptyCells();
+                }
                 this.cells.forEach((row, rowIndex) => {
                     row.forEach((value, columnIndex) => {
-                        let cell = new TileCell();
-                        cell.setProperties({
-                            value,
-                            column: columnIndex,
-                            row: rowIndex
-                        });
-                        this.shadowRoot.appendChild(cell);
+                        if(value > 0) {
+                            let cell = new TileCell();
+                            cell.setProperties({
+                                value,
+                                column: columnIndex,
+                                row: rowIndex
+                            });
+                            this.shadowRoot.appendChild(cell);
+                        }
                     });
                 });
+            }
+
+            addRandomTile() {
+                if(this.availableCells.length) {
+                    let value = Math.random() < .9 ? 2 : 4;
+                    let cellInfo = this.randomAvailableCell;
+                    let cell = new TileCell();
+                    cell.setProperties({
+                        value,
+                        column: cellInfo.column,
+                        row: cellInfo.row
+                    });
+                    this.shadowRoot.appendChild(cell);
+                    this.cells[cell.row][cell.column] = cell.value;
+                }
+            }
+            /**
+            * creates a multidimensions array of empty cells
+            */
+            __emptyCells() {
+                let cells = Array(this.size).fill().map( _ => []);
+                cells = cells.fill().map(_ => Array(this.size).fill().map( _ => 0));
+                return cells;
             }
 
             __removeTiles() {

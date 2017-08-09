@@ -59,7 +59,7 @@
         <game-container id="game">
             <game-message slot="message"></game-message>
             <grid-container id="grid" slot="grids" size="[[size]]" cells="[[cells]]"></grid-container>
-            <tile-container id="tiles" slot="tiles" size="[[size]]" cells="[[cells]]"></tile-container>
+            <tile-container id="tiles" slot="tiles" size="[[size]]" game-state="[[gameState]]" cells="{{cells}}"></tile-container>
         </game-container>
     </template>
 
@@ -131,7 +131,7 @@
                     /**
                      * the number of start tiles
                      */
-                    startTile: {
+                    startTiles: {
                         type: Number,
                         value: 2
                     },
@@ -141,11 +141,9 @@
                      * can be serialized and deserialized from storage
                      */
                     gameState: {
-                        type: Object,
+                        type: GameState,
                         notify: true,
-                        value: () => {
-                            return {}
-                        }
+                        value: null
                     },
 
                     /**
@@ -158,14 +156,7 @@
                      */
                     cells: {
                         type: Array,
-                        value: () => {
-                            return [
-                                [0, 0, 0, 0],
-                                [0, 0, 0, 0],
-                                [0, 0, 0, 0],
-                                [0, 0, 0, 0]
-                            ];
-                        }
+                        notify: true
                     }
                 };
             }
@@ -214,9 +205,6 @@
              * Restart game
              */
             _restart() {
-                this.gameState = {
-
-                }
                 this.__setup();
             }
 
@@ -231,9 +219,51 @@
              * setup a new game
              */
             __setup() {
-                const previousGame = this.gameState;
-                console.log(previousGame);
+                const previous = this.gameState;
+                if(previous) {
+                    console.log(previous);
+                }
+                this.$.tiles.setup();
+                this.cells = this.$.tiles.cells;
+                this.score = (previous) ? previous.score : 0;
+                this.over = (previous) ? previous.over : false;
+                this.won = (previous) ? previous.won : false;
+                this.keepPlaying = (previous) ? previous.keepPlaying : false;
+                if(!previous) {
+                    this.__addStartTiles();
+                    const state = new GameState(this.size, this.cells);
+                    state.score = this.score;
+                    state.over = this.over;
+                    state.won = this.won;
+                    state.keepPlaying = this.keepPlaying;
+                    this.gameState = state;
+                }
             }
+
+            __addStartTiles() {
+                for(let i = 0; i < this.startTiles; i ++) {
+                    this.$.tiles.addRandomTile();
+                }
+            }
+            __createNewGameState() {
+                this.cells = this.__createEmptyCells();
+                return new GameState(this.size, this.cells);
+            }
+
+            /**
+            * helper creates new empty cells
+            * @returns {Array} multidimensional array
+            * filed with 0 tiles
+            */
+            __createEmptyCells() {
+                return [
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [0,0,0,0]
+                ];
+            }
+
 
         }
         window.customElements.define(GameApp.is, GameApp);
