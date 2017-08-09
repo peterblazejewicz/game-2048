@@ -1,0 +1,96 @@
+<dom-module id="game-state">
+    <script>
+        /**
+        * the game state
+        */
+        class GameState {
+            /**
+            * creates new instance of GameState
+            * @param {Number} the size of the grid
+            * @param {Array} the actual cells
+            */
+            constructor(size, cells) {
+                this._grid = new GameGrid(size, cells);
+                this.won = false;
+                this.over = false;
+                this.keepPlaying = false;
+            }
+
+            /**
+            * @property {GameGrid} the grid
+            */
+            get grid() {
+                return this._grid;
+            }
+            set grid(value) {
+                this._grid = value;
+            }
+
+            /**
+            * @property {Number} a game score
+            */
+            get score() {
+                return this._score;
+            }
+            set score(value) {
+                this._score = value;
+            }
+
+            /**
+            * @property {Boolean} is the game won?
+            */
+            get won() {
+                return this._won;
+            }
+            set won(value) {
+                this._won = value;
+            }
+
+            /**
+            * @property {Boolean} should the game keep playing after reaching top cell?
+            */
+            get keepPlaying() {
+                return this._keepPlaying;
+            }
+            set keepPlaying(value) {
+                this._keepPlaying = value;
+            }
+        }
+
+        /**
+        * the representation of the game grid
+        */
+        class GameGrid {
+            /**
+            * @constructor
+            * @param {Number} the size of the grid
+            * @param {Array} the grid cells
+            */
+            constructor(size, cells) {
+                this.size = size;
+                this.cells = cells;
+            }
+
+            /**
+            * @property {Number} the size of the grid (a dimension)
+            */
+            get size() {
+                return this._size;
+            }
+            set size(value) {
+                this._size = value;
+            }
+
+            /**
+            * @property {Array} the multidimensional array with rows
+            * and columns 
+            */
+            get cells() {
+                return this._cells;
+            }
+            set cells(value) {
+                this._cells = value;
+            }
+        }
+    </script>
+</dom-module>

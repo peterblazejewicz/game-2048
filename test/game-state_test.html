@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>GameState Tests</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../src/game-state.html">
+</head>
+
+<body>
+
+    <test-fixture id="AppFixture">
+        <template>
+            <game-app></game-app>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('game-app', () => {
+
+            let state;
+
+            setup(() => {
+                const cells = [
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [0,0,0,0]
+                ];
+                const size = 4;
+                state = new GameState(size, cells);
+            });
+
+            suite('game-state defaults', () => {
+
+                test('it has an grid instance', () => {
+                    assert.ok(state.grid);
+                });
+
+                test('it has a grid with size set to 4', () => {
+                    assert.equal(state.grid.size, 4);
+                });
+
+                test('it has a grid with an array of cells', () => {
+                    assert.ok(state.grid.cells);
+                });
+
+                test('it has won property set to false', () => {
+                    assert.equal(state.won, false);
+                });
+
+                test('it has over property set to false', () => {
+                    assert.equal(state.over, false);
+                });
+
+                test('it has keepPlaying property set to false', () => {
+                    assert.equal(state.keepPlaying, false);
+                })
+
+            });
+
+            suite('game-state reset', () => {
+
+                setup(() => {
+                    const cells = [
+                        [0,0,0,0],
+                        [0,0,0,0],
+                        [0,0,0,0],
+                        [0,0,0,0]
+                    ];
+                    const size = 4;
+                    state = new GameState(size, cells);
+                })
+
+                test('the grid can be reset', () => {
+                    const oldGrid = state.grid;
+                    state = new GameState(0, []);
+                    assert.notStrictEqual(state.grid, oldGrid);
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
